@@ -2,6 +2,7 @@
 In this project, I am teaching myself computer graphics. In essence, I am deriving formulas to handle objects in 3D and render them in a 2D frame in Java. A lot of the code comes from http://blog.rogach.org/2015/08/how-to-create-your-own-simple-3d-render.html, but I've taken a detour to try and do some of the math-related parts on my own such as finding the depth of the pixels and determining whether a pixel lies in the interior of a triangle.
 
 Below, I've 2 triangles in 3D that intersect with each other, and I can rotate the triangles to see them at different angles.
+
 ![image](https://user-images.githubusercontent.com/32008471/130649536-02191ad2-b585-4473-8392-eac1173b9097.png)
 ![image](https://user-images.githubusercontent.com/32008471/130649968-528bb9f4-040e-4d79-b65b-fa104f068404.png)
 
