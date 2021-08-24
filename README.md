@@ -6,7 +6,7 @@ Below, I've 2 triangles in 3D that intersect with each other, and I can rotate t
 ![image](https://user-images.githubusercontent.com/32008471/130649536-02191ad2-b585-4473-8392-eac1173b9097.png)
 ![image](https://user-images.githubusercontent.com/32008471/130649968-528bb9f4-040e-4d79-b65b-fa104f068404.png)
 
-Later on in this post, I can possibly add some documentation to explain the mathematics behind this in a formal way.
+Later on in this post, I can possibly add some documentation to explain the mathematics behind this in a formal way. The resource I've used attempts to explain this in their blogpost at http://blog.rogach.org/2015/08/how-to-create-your-own-simple-3d-render.html.
 
 # Problems Solved before Upload
 * Added algorithm that determines whether the pixel we're considering lies within a triangle and places a pixel in the color of the triangle we're considering.
