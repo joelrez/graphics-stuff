@@ -59,6 +59,10 @@ public class viewer {
                             0, -Math.sin(pitch), Math.cos(pitch)
                         });
                     
+                    Vertex centroid = new Vertex((tris.get(0).centroid.x +tris.get(1).centroid.x)/2,
+                    							 (tris.get(0).centroid.y + tris.get(1).centroid.y)/2,
+                    							 (tris.get(0).centroid.z + tris.get(1).centroid.z)/2);
+                    
                     Matrix3 transform = headingTransform.multiply(pitchTransform);
                     
                     BufferedImage img = 
@@ -70,9 +74,12 @@ public class viewer {
                     	depthMap[i] = Double.NEGATIVE_INFINITY;
                     
                     for (Triangle t:tris) {
-                    	Vertex v1 = transform.transform(t.v1);
-                    	Vertex v2 = transform.transform(t.v2);
-                    	Vertex v3 = transform.transform(t.v3);
+                    	Vertex v1 = transform.transform(t.v1.subtract(centroid));
+                    	Vertex v2 = transform.transform(t.v2.subtract(centroid));
+                    	Vertex v3 = transform.transform(t.v3.subtract(centroid));
+                    	v1 = v1.add(centroid);
+                    	v2 = v2.add(centroid);
+                    	v3 = v3.add(centroid);
                     	
                     	Triangle t2 = new Triangle(v1,v2,v3,t.color);
                     	
@@ -100,7 +107,6 @@ public class viewer {
         frame.setVisible(true);
     }
 }
-
 class Vertex {
     double x;
     double y;
@@ -110,18 +116,27 @@ class Vertex {
         this.y = y;
         this.z = z;
     }
+    Vertex subtract(Vertex v) {
+    	return new Vertex(this.x - v.x, this.y - v.y, this.z - v.z);
+    }
+    Vertex add(Vertex v) {
+    	return new Vertex(this.x + v.x, this.y + v.y, this.z + v.z);
+    }
 }
 
-class Triangle {
+class Triangle{
     Vertex v1;
     Vertex v2;
     Vertex v3;
     Color color;
+    Vertex centroid;
+    
     Triangle(Vertex v1, Vertex v2, Vertex v3, Color color) {
         this.v1 = v1;
         this.v2 = v2;
         this.v3 = v3;
         this.color = color;
+        this.getCentroid();
     }
     
     boolean isInside(double ... X) {
@@ -151,6 +166,23 @@ class Triangle {
     	double t = ((A.y - B.y)*(x - A.x) + (B.x - A.x)*(y - A.y))/det;
     	
     	return (1-s-t)*A.z + t*C.z + s*B.z;
+    }
+    
+    private void getCentroid() {
+    	// computing scalar s
+    	Vertex v3prime = new Vertex((this.v1.x+this.v2.x)/2,
+    								(this.v1.y+this.v2.y)/2,
+    								(this.v1.z+this.v2.z)/2);
+    	Vertex v2prime = new Vertex((this.v1.x+this.v3.x)/2, 
+    								(this.v1.y+this.v3.y)/2,
+    								(this.v1.z+this.v3.z)/2);
+    	double det = (v3prime.x-v3.x)*(this.v2.y-v2prime.y) - (this.v2.x-v2prime.x)*(v3prime.y-this.v3.y);
+    	double s = ((this.v2.y-v2prime.y)*(this.v3.x-this.v2.x) + (v2prime.x-this.v2.x)*(this.v3.y-this.v2.y))/det;
+    	
+    	// find centroid
+    	double x = this.v3.x + s*(this.v3.x - v3prime.x);
+    	double y = this.v3.y + s*(this.v3.y - v3prime.y);
+    	this.centroid = new Vertex(x,y, this.getDepth(x, y)); 
     }
 }
 
