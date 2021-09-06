@@ -11,7 +11,7 @@ Later on in this post, I can possibly add some documentation to explain the math
 # Problems Solved
 * Added algorithm that determines whether the pixel we're considering lies within a triangle and places a pixel in the color of the triangle we're considering.
 * Added algorithm to determine the depth of the pixel of the triangle we're considering. This helps us make sure the figure is properly drawn based on the information of the triangles.
-* Rotating these triangles based on the centers of them rather than at the origin (top left corner.) Now we find the centroid of the triangles, and then I average the centroids. Then I rotate these triangles about the centroid of both of them. I solve this problem whilst streaming on twitch ( https://www.twitch.tv/videos/1140359183 .) On stream, I get help from bokeh_joe who gave me the idea of averaging the centroids of both triangles. On stream, I show that averaging the centroids of 2 triangles is the same as averaging the vertices of all 6 points of both triangles.
+* Rotating these triangles based on the centers of them rather than at the origin (top left corner.) Now we find the centroids of the triangles, and then I average the centroids. Then I rotate these triangles about the centroid of both of them. I solve this problem whilst streaming on twitch ( https://www.twitch.tv/videos/1140359183 .) On stream, I get help from bokeh_joe who gave me the idea of averaging the centroids of both triangles. On stream, I show that averaging the centroids of 2 triangles is the same as averaging the vertices of all 6 points of both triangles.
 
 # Goals
 * I want to add lighting.
